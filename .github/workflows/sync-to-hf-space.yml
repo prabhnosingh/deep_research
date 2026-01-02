@@ -13,7 +13,34 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+      
+      - name: Configure Git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git config --global pull.rebase true
+      
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://prabhnosingh:$HF_TOKEN@huggingface.co/spaces/prabhnosingh/deep_research main
+        run: |
+          # Clone the Hugging Face space to a temporary directory
+          git clone https://prabhnosingh:$HF_TOKEN@huggingface.co/spaces/prabhnosingh/deep_research /tmp/hf_space
+          cd /tmp/hf_space
+          
+          # Pull latest changes to handle any remote updates
+          git pull origin main || true
+          
+          # Copy files from GitHub repo to Hugging Face space
+          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/*.py . 2>/dev/null || true
+          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/requirements.txt . 2>/dev/null || true
+          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/README.md . 2>/dev/null || true
+          
+          # Configure git
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          
+          # Commit and push
+          git add .
+          git commit -m "Update from GitHub Actions" || echo "No changes to commit"
+          git push origin main
