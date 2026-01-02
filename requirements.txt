@@ -2,3 +2,4 @@ gradio
 python-dotenv
 sendgrid
 pydantic
+openai-agents>=0.0.15
