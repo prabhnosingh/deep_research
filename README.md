@@ -62,7 +62,3 @@ python app.py
 
 This opens the Gradio UI in your browser. Enter a query and run the pipeline.
 
-## Notes & Next steps
-- `requirements.txt` lists the detected external packages but does not pin versions; pin them by running `pip freeze > requirements.txt` after verifying compatibility.
-- The project depends on a local `agents` package and access to an OpenAI-compatible service; ensure credentials/configuration for that service are provided.
-- If you want, I can pin dependency versions and run a quick install test locally.
