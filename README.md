@@ -1,3 +1,14 @@
+---
+title: Deep Research
+emoji: 🔍
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+sdk_version: 5.49.1
+app_file: app.py
+pinned: false
+---
+
 # Deep Research
 
 ## Tech Used
@@ -15,7 +26,7 @@ Deep Research is a small pipeline that automates web-research tasks: it plans se
 ## How it works (short)
 1. The `ResearchManager` coordinates the pipeline: it asks the `planner_agent` for search terms, runs `search_agent` on each term, collects results, asks `writer_agent` to produce a full report, then calls `email_agent` to send the report.
 2. Each agent is an `Agent` object from the local `agents` package; some agents use tools (e.g., `WebSearchTool`) and the writer/planner use structured Pydantic output models.
-3. The Gradio app (`deep_research.py`) exposes a textbox and button; when run it starts the `ResearchManager` and streams progress and final report to the UI.
+3. The Gradio app (`app.py`) exposes a textbox and button; when run it starts the `ResearchManager` and streams progress and final report to the UI.
 
 ## Run locally (Windows)
 1. Create a virtual environment and activate it (PowerShell):
@@ -46,7 +57,7 @@ SENDGRID_API_KEY=your_sendgrid_api_key_here
 4. Launch the app:
 
 ```powershell
-python deep_research.py
+python app.py
 ```
 
 This opens the Gradio UI in your browser. Enter a query and run the pipeline.
