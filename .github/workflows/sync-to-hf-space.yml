@@ -31,16 +31,22 @@ jobs:
           # Pull latest changes to handle any remote updates
           git pull origin main || true
           
-          # Copy files from GitHub repo to Hugging Face space
-          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/*.py . 2>/dev/null || true
-          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/requirements.txt . 2>/dev/null || true
-          cp -f $GITHUB_WORKSPACE/2_openai/deep_research/README.md . 2>/dev/null || true
+          # Source directory - syncs all files from this directory to HF space
+          SOURCE_DIR="$GITHUB_WORKSPACE/deep_research"
+          
+          # Copy all files from source, excluding .git, .github, __pycache__, and .env
+          # First, copy everything
+          cp -r "$SOURCE_DIR"/* . 2>/dev/null || true
+          cp -r "$SOURCE_DIR"/.[!.]* . 2>/dev/null || true
+          
+          # Remove directories/files we don't want in HF space
+          rm -rf .git .github __pycache__ *.pyc .env 2>/dev/null || true
           
           # Configure git
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           
-          # Commit and push
-          git add .
-          git commit -m "Update from GitHub Actions" || echo "No changes to commit"
+          # Commit and push all changes
+          git add -A
+          git commit -m "Update from GitHub Actions - $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push origin main
