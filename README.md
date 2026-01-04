@@ -11,7 +11,7 @@ pinned: false
 
 # Deep Research
 
-**Live Demo:** https://huggingface.co/spaces/prabhnosingh/career_conversations
+**Live Demo:** https://huggingface.co/spaces/prabhnosingh/deep_research
 
 ## Tech Used
 - Gradio (UI)
