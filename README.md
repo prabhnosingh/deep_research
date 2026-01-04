@@ -11,6 +11,8 @@ pinned: false
 
 # Deep Research
 
+**Live Demo:** https://huggingface.co/spaces/prabhnosingh/career_conversations
+
 ## Tech Used
 - Gradio (UI)
 - python-dotenv (load environment variables)
